@@ -19,18 +19,10 @@ class Deck {
         })
     }
 
-    drawCard(object) {
-        fetch(`https://deckofcardsapi.com/api/deck/${this.id}/draw/`)
+    drawCard() {
+        return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/draw/`)
         .then(response => {
             return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                for (const cardData in data.cards) {
-                    const card = new Card(data.cards[cardData]);
-                    object.receiveCard(card);
-                }
-            }
         });
     }
 }

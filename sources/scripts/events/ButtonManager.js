@@ -10,7 +10,7 @@ class ButtonManager {
         });
 
         DECK.addEventListener('click', () => {
-            game.deck.drawCard(game.user);
+            game.draw(game.user);
         });
     }
 }
