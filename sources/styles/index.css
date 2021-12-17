@@ -84,9 +84,13 @@ section.hidden {
   min-height: 70px;
   padding: 10px;
   border-radius: 50%;
-  background: #752222;
+  background-color: green;
   color: white;
   text-align: center;
+  transition: 0.5s;
+}
+.hand-nbPointsContainer div.invalid {
+  background-color: rgb(139, 25, 25);
 }
 .hand-nbPointsContainer #hand-nbPoints {
   font-weight: bold;
