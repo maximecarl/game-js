@@ -1,0 +1,127 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+}
+section.hidden {
+  display: none;
+}
+
+#gameSection {
+  flex-direction: column;
+}
+
+#gameSection-deck {
+  flex: 2;
+}
+
+#gameSection-hand {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+#gameSection-hand ul {
+  display: inline-flex;
+  flex: 1;
+  max-width: 100%;
+  padding: 0;
+}
+#gameSection-hand .card {
+  list-style: none;
+  height: 100%;
+  position: relative;
+  flex: 1;
+  max-width: 30px;
+}
+#gameSection-hand .card:first-child {
+  margin-left: auto;
+}
+#gameSection-hand .card:last-child {
+  max-width: 180px;
+  margin-right: auto;
+}
+#gameSection-hand .card img {
+  position: absolute;
+  height: 100%;
+  width: auto;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+}
+#gameSection-hand .card img:hover {
+  transform: translateY(-50px);
+}
+
+#gameSection-hand .hand-nbPointsContainer {
+  height: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.hand-nbPointsContainer div {
+  position: absolute;
+  bottom: 0px;
+  min-width: 70px;
+  min-height: 70px;
+  padding: 10px;
+  border-radius: 50%;
+  background: #752222;
+  color: white;
+  text-align: center;
+}
+.hand-nbPointsContainer #hand-nbPoints {
+  font-weight: bold;
+  font-size: x-large;
+}
+.hand-nbPointsContainer p {
+  margin: 0;
+}
+
+#gameSection-user .actions{
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+}
+.form-row {
+  margin-bottom: 10px;
+}
+input {
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 5px;
+  margin: 3px 0;
+  border: 1px solid lightgrey;
+}
+
+input[type=submit], button {
+  padding: 5px 20px;
+  max-width: fit-content;
+}

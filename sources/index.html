@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Poker 21</title>
+  <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+  <h1>Poker 21</h1>
+
+  <section id="loginSection">
+    <div id="loginSection-user">
+      <form id="loginUser">
+        <div class="form-row">
+          <label>Nom d'utilisateur
+            <input type="text" id="loginUser-username" name="username" required>
+          </label>
+        </div>
+        <input type="submit" value="Jouer">
+      </form>
+    </div>
+  </section>
+
+  <section id="gameSection" class="hidden">
+    <div id="gameSection-deck">
+      <div id="deck-container">
+        <button>
+          DECK
+        </button>
+      </div>
+    </div>
+    <div id="gameSection-hand">
+      <ul id="hand-container">
+        <!-- Automatically add cards when user draws -->
+      </ul>
+      <div class="hand-nbPointsContainer">
+        <div>
+          <p id="hand-nbPoints">0</p>
+          <p>PTS</p>
+        </div>
+      </div>
+    </div>
+    <div id="gameSection-user">
+      <div id="gameSection-actions" class="actions">
+        <button id="action-stop">Arrêter de piocher</button>
+      </div>
+    </div>
+  </section>
+  
+  <script src="./index.js" type="module"></script>
+</body>
+</html>
