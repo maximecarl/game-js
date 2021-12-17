@@ -1,6 +1,8 @@
+import { Hand } from "../cards/Hand.js";
+
 class GameMaster {
     constructor() {
-        this.card = null;
+        this.hand = new Hand;
     }
 
     receiveCard(card) {
