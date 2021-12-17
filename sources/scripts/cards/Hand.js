@@ -12,6 +12,10 @@ class Hand {
         
         Displayer.displayCard(card, this.nbPoints);
     }
+
+    isValid() {
+        return this.nbPoints <= 21;
+    }
 }
 
 export { Hand };

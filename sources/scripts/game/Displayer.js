@@ -31,6 +31,10 @@ class Displayer {
 
         document.getElementById('hand-nbPoints').innerHTML = totalPoints;
     }
+
+    setDefeat() {
+        document.getElementById('hand-victoryIndicator').classList.add('invalid');
+    }
 }
 
 export { Displayer };

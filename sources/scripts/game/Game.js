@@ -6,24 +6,22 @@ import { GameMaster } from '../user/GameMaster.js';
 class Game {
     constructor() {
         this.user = null;
-        this.deck = null;
+        this.deck = new Deck();
         this.gameMaster = new GameMaster();
-
-        this.initDeck();
+        this.displayer = new Displayer();
+        this.terminated = false;
     }
 
     initGame(user) {
         if (user.isValid()) {
             this.user = user;
-    
-            const displayer = new Displayer();
             
             // Check if deck is builded
             const deckBuildInterval = setInterval(() => {
                 if (this.deck.id) {
     
                     // Set the interface
-                    displayer.initGame(this);
+                    this.displayer.initGame(this);
     
                     clearInterval(deckBuildInterval);
                 }
@@ -31,25 +29,69 @@ class Game {
         }
     }
 
-    initDeck() {
-        this.deck = new Deck();
+    draw() {
+        if (!this.terminated) {
+            this.deck.drawCard()
+            .then(data => {
+                if (data.success) {
+                    for (const cardData in data.cards) {
+                        const card = new Card(data.cards[cardData]);
+                        this.user.receiveCard(card);
+                    }
+                    this.terminated = this.isTerminated();
+                }
+            });
+        }
     }
 
-    draw() {
-        let draw = this.deck.drawCard(this.user)
-        .then(data => {
-            if (data.success) {
-                for (const cardData in data.cards) {
-                    const card = new Card(data.cards[cardData]);
-                    this.user.receiveCard(card);
-                }
-            }
-        });
+    isTerminated() {
+        if (!this.user.hadValidHand()) {
+            this.setDefeat();
+            return true;
+        } else if (this.user.hand.nbPoints === 21) {
+            this.setVictory();
+            return true;
+        }
+
+        return false;
     }
 
     endTurn() {
-        console.log('Stop turn');
+        // Check by security, not mandatory
+        this.terminated = this.isTerminated(); 
+        
+        if (!this.terminated){
+            this.terminated = true;
 
+            this.deck.drawCard()
+            .then(data => {
+                if (data.success) {
+                    for (const cardData in data.cards) {
+                        const card = new Card(data.cards[cardData]);
+                        this.gameMaster.receiveCard(card);
+
+                        console.log(card);
+
+                        let totalPoints = card.gameValue + this.user.hand.nbPoints;
+                        if (totalPoints > 21) {
+                            this.setVictory();
+                        }else {
+                            this.setDefeat();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    setVictory() {
+        console.log('vitory');
+        this.user.victory ++;
+    }
+
+    setDefeat() {
+        console.log('defeat');
+        this.displayer.setDefeat();
     }
 }
 

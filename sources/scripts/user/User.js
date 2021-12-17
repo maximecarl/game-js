@@ -14,6 +14,10 @@ class User {
     receiveCard(card) {
         this.hand.addCard(card);
     }
+
+    hadValidHand() {
+        return this.hand.isValid();
+    }
 }
 
 export { User };
