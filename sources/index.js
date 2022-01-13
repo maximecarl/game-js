@@ -1,7 +1,8 @@
 import { Game } from './scripts/game/Game.js';
 import { User } from './scripts/user/User.js';
+import { NotifyCenter } from './scripts/events/NotifyCenter.js';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {    
     const game = new Game();
 
     document.getElementById('loginUser').addEventListener('submit', e => {

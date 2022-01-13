@@ -32,6 +32,12 @@ section.hidden {
 
 #gameSection-deck {
   flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+#deck-container {
+  max-width: 160px;
 }
 
 #gameSection-hand {
@@ -128,4 +134,19 @@ input {
 input[type=submit], button {
   padding: 5px 20px;
   max-width: fit-content;
+}
+
+
+#notifyCenter {
+  position: relative;
+  width: 100%;
+}
+.notification {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 20px;
 }

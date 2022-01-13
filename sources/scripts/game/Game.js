@@ -2,6 +2,7 @@ import { Deck } from '../cards/Deck.js';
 import { Card } from '../cards/Card.js';
 import { Displayer } from './Displayer.js';
 import { GameMaster } from '../user/GameMaster.js';
+import { NotifyCenter } from '../events/NotifyCenter.js';
 
 class Game {
     constructor() {
@@ -10,6 +11,7 @@ class Game {
         this.gameMaster = new GameMaster();
         this.displayer = new Displayer();
         this.terminated = false;
+        this.notifyCenter = new NotifyCenter();
     }
 
     initGame(user) {
@@ -85,12 +87,20 @@ class Game {
     }
 
     setVictory() {
-        console.log('vitory');
+        let victoryMessage = document.createTextNode('Victoire !');
+        this.notifyCenter.notify(
+            victoryMessage, 
+            'success'
+        );
         this.user.victory ++;
     }
 
     setDefeat() {
-        console.log('defeat');
+        let defeatMessage = document.createTextNode('Défaite...');
+        this.notifyCenter.notify(
+            defeatMessage,
+            'error'
+        );
         this.displayer.setDefeat();
     }
 }
