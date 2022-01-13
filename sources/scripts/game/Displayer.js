@@ -1,10 +1,12 @@
 import { SectionManager } from './SectionManager.js';
 import { ButtonManager } from '../events/ButtonManager.js';
+import { NetworkManager } from "../events/NetworkManager.js";
 
 class Displayer {
     initGame(game) {
         console.log(game);
-
+        const networkManager = new NetworkManager() ;
+        networkManager.initNetworkDisplay();
         const buttonManager = new ButtonManager();
 
         SectionManager.openSection('gameSection');
@@ -35,6 +37,8 @@ class Displayer {
     setDefeat() {
         document.getElementById('hand-victoryIndicator').classList.add('invalid');
     }
+
+
 }
 
 export { Displayer };
