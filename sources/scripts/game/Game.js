@@ -4,6 +4,8 @@ import { Displayer } from './Displayer.js';
 import { GameMaster } from '../user/GameMaster.js';
 import { NotifyCenter } from '../events/NotifyCenter.js';
 import {VibrationManager} from "../events/VibrationManager.js";
+import {KeyboardEventsManager} from "../events/KeybordEventsManager.js";
+import {ButtonManager} from "../events/ButtonManager.js";
 
 class Game {
     constructor() {
@@ -19,7 +21,8 @@ class Game {
     initGame(user) {
         if (user.isValid()) {
             this.user = user;
-            
+            KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
+            KeyboardEventsManager.drawEvent(this) ;
             // Check if deck is builded
             const deckBuildInterval = setInterval(() => {
                 if (this.deck.id) {
@@ -50,9 +53,11 @@ class Game {
 
     isTerminated() {
         if (!this.user.hadValidHand()) {
+            ButtonManager.desableButton();
             this.setDefeat();
             return true;
         } else if (this.user.hand.nbPoints === 21) {
+            ButtonManager.desableButton();
             this.setVictory();
             return true;
         }
@@ -66,7 +71,7 @@ class Game {
         
         if (!this.terminated){
             this.terminated = true;
-
+            ButtonManager.desableButton();
             this.deck.drawCard()
             .then(data => {
                 if (data.success) {
@@ -107,6 +112,8 @@ class Game {
         this.vibrate.createVibration(100) ;
         this.displayer.setDefeat();
     }
+
+
 }
 
 export { Game };
