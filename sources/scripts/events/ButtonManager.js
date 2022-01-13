@@ -12,7 +12,18 @@ class ButtonManager {
         DECK.addEventListener('click', () => {
             game.draw(game.user);
         });
-    }
+    };
+
+    static desableButton() {
+        document.getElementsByClassName('deck')[0].disabled = true ;
+        DRAW_CANCEL.disabled = true ;
+    };
+
+    static enableButton() {
+        document.getElementsByClassName('deck')[0].disabled = false ;
+        DRAW_CANCEL.disabled = false ;
+    };
+
 }
 
 export { ButtonManager };
