@@ -2,6 +2,7 @@ import { Deck } from '../cards/Deck.js';
 
 const DECK = document.getElementById('deck-container');
 const DRAW_CANCEL = document.getElementById('action-stop');
+const RESTART = document.getElementById('action-restart');
 
 class ButtonManager {
     initGame(game) {
@@ -11,6 +12,10 @@ class ButtonManager {
 
         DECK.addEventListener('click', () => {
             game.draw(game.user);
+        });
+        RESTART.addEventListener('click', () => {
+            game.restart();
+            RESTART.disabled = true;
         });
     };
 
@@ -22,6 +27,10 @@ class ButtonManager {
     static enableButton() {
         document.getElementsByClassName('deck')[0].disabled = false ;
         DRAW_CANCEL.disabled = false ;
+    };
+
+    static enableButtonRestart() {
+        RESTART.disabled = false;
     };
 
 }

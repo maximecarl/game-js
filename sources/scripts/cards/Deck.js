@@ -35,6 +35,13 @@ class Deck {
         }
     }
 
+    reshuffle(){
+        return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/shuffle/?remaining=true`)
+        .then(response => {
+            return response.json();
+        });
+    }
+
     cancelDraw() {
         this.controller.abort() ;
     }

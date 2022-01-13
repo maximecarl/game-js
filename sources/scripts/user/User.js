@@ -18,6 +18,10 @@ class User {
     hadValidHand() {
         return this.hand.isValid();
     }
+
+    resetHand(){
+        this.hand = new Hand();
+    }
 }
 
 export { User };
