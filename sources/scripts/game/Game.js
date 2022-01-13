@@ -3,6 +3,7 @@ import { Card } from '../cards/Card.js';
 import { Displayer } from './Displayer.js';
 import { GameMaster } from '../user/GameMaster.js';
 import { NotifyCenter } from '../events/NotifyCenter.js';
+import {VibrationManager} from "../events/VibrationManager.js";
 
 class Game {
     constructor() {
@@ -12,6 +13,7 @@ class Game {
         this.displayer = new Displayer();
         this.terminated = false;
         this.notifyCenter = new NotifyCenter();
+        this.vibrate = new VibrationManager() ;
     }
 
     initGame(user) {
@@ -92,6 +94,7 @@ class Game {
             victoryMessage, 
             'success'
         );
+        this.vibrate.createVibration([100,10,100]) ;
         this.user.victory ++;
     }
 
@@ -101,6 +104,7 @@ class Game {
             defeatMessage,
             'error'
         );
+        this.vibrate.createVibration(100) ;
         this.displayer.setDefeat();
     }
 }
