@@ -38,6 +38,7 @@ class Game {
 
     draw() {
         if (!this.terminated) {
+            ButtonManager.enableButtonRestart();
             this.deck.drawCard()
             .then(data => {
                 if (data.success) {
@@ -49,6 +50,20 @@ class Game {
                 }
             });
         }
+    }
+
+    restart(){
+            if(this.user.hand.cards.length > 0){
+                this.deck.reshuffle()
+                .then(() => {
+                    ButtonManager.enableButton();
+                    this.user.resetHand();
+                    this.displayer.resetHandDisplay();
+                    this.terminated=false;
+                    console.log(this.user.hand)
+                })
+            }
+       
     }
 
     isTerminated() {

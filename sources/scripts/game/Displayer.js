@@ -38,6 +38,15 @@ class Displayer {
         document.getElementById('hand-victoryIndicator').classList.add('invalid');
     }
 
+    resetHandDisplay(){
+        const hand = document.getElementById('hand-container');
+        hand.querySelectorAll('li').forEach( n => n.remove() );
+        console.log("test");
+        document.getElementById("hand-nbPoints").innerText = 0;
+        document.getElementById("hand-victoryIndicator").className = "valid";
+
+    }
+
 
 }
 
