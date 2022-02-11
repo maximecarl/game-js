@@ -34,6 +34,7 @@ class Game {
     draw(nbToDraw = 1) {
         if (!this.terminated) {
             ButtonManager.enableButtonRestart();
+            ButtonManager.enableButton();
             let drawPromise = this.deck.drawCard(nbToDraw);
 
             if (drawPromise instanceof Promise) {
@@ -57,27 +58,27 @@ class Game {
                 this.deck.reshuffle()
                 .then(data => {
                     if (data.success) {
-                        this.deck.updateDeckData(data);
-                        ButtonManager.enableButton();
-                        this.user.resetHand();
-                        this.displayer.resetHandDisplay();
-                        this.terminated=false;
+                        this.restartWithData(data);
                     }
                 });
             } else {
                 this.deck.restartDeck()
                 .then(data => {
                     if (data.success) {
-                        this.deck.updateDeckData(data);
+                        this.restartWithData(data);
                         this.displayer.displayDeck(this.deck);
-                        ButtonManager.enableButton();
-                        this.user.resetHand();
-                        this.displayer.resetHandDisplay();
-                        this.terminated=false;
                     }
                 });
             }
         }
+    }
+    restartWithData(data) {
+        this.deck.updateDeckData(data);
+        this.displayer.displayDeck(this.deck);
+        ButtonManager.disableButton();
+        this.user.resetHand();
+        this.displayer.resetHandDisplay();
+        this.terminated=false;
     }
 
     isTerminated() {
@@ -130,6 +131,7 @@ class Game {
         );
         this.vibrate.createVibration([100,10,100]) ;
         this.user.victory ++;
+        this.displayer.setVictory();
     }
 
     setDefeat() {
@@ -138,7 +140,7 @@ class Game {
             defeatMessage,
             'error'
         );
-        this.vibrate.createVibration(100) ;
+        this.vibrate.createVibration(100);
         this.displayer.setDefeat();
     }
 

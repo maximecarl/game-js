@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="./styles/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/network.css">
 </head>
 <body>
-  <h1>Poker 21</h1>
+  <h1>POKER 21</h1>
 
   <section id="loginSection">
     <div id="loginSection-user">
@@ -29,12 +29,12 @@
 
   <section id="gameSection" class="hidden">
     <div id="gameSection-deck">
-      <div id="gameSection-buttons">
-        <button class="cta" id="action-stop">STOP</button>
-        <button class="cta" id="action-restart">Restart</button>
-      </div>
-      <div class="deck-cardIndicator-container">
-        <button id="deck-cardIndicator"></button>
+      <div class="gameSection-actions">
+        <div id="deck-cardIndicator"></div>
+        <div class="gameSection-buttons">
+          <button class="cta dynamicButton" id="action-stop" disabled="true">STOP</button>
+          <button class="cta dynamicButton" id="action-restart" disabled>RESTART</button>
+        </div>
       </div>
       <!-- Automatically display cards when deck is created and updated -->
       <div id="deck-container">
@@ -52,8 +52,10 @@
       </div>
     </div>
     <div id="gameSection-network">
-      <div id="network-status" class="test"></div>
-      <span id="network-text"></span>
+      <div class="network-container">
+          <div id="network-status"></div>
+          <span id="network-text"></span>
+      </div>
     </div>
   </section>
   
