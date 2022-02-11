@@ -27,6 +27,7 @@ class Game {
             });
             KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
             KeyboardEventsManager.drawEvent(this) ;
+            KeyboardEventsManager.restartEvent(this) ;
         }
     }
 
