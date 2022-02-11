@@ -2,6 +2,7 @@ class Deck {
     constructor() {
         this.buildDeck();
         this.isBusy = false;
+        this.controller = new AbortController() ;
     }
 
     buildDeck() {
@@ -20,8 +21,12 @@ class Deck {
 
     async drawCard(nbToDraw = 1) {
         if (!this.isBusy) {
+            this.controller = new AbortController() ;
             this.isBusy = true;
-            return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/draw/`)
+            return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/draw/`, {
+                method:"get",
+                signal: this.controller.signal
+            })
             .then(response => {
                 this.nbCards -= nbToDraw;
                 return response.json();
@@ -29,6 +34,17 @@ class Deck {
                 this.isBusy = false;
             });
         }
+    }
+
+    reshuffle(){
+        return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/shuffle/?remaining=true`)
+        .then(response => {
+            return response.json();
+        });
+    }
+
+    cancelDraw() {
+        this.controller.abort() ;
     }
 }
 

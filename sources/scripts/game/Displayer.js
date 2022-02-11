@@ -1,8 +1,11 @@
 import { SectionManager } from './SectionManager.js';
 import { ButtonManager } from '../events/ButtonManager.js';
+import { NetworkManager } from "../events/NetworkManager.js";
 
 class Displayer {
     initGame(game) {
+        const networkManager = new NetworkManager() ;
+        networkManager.initNetworkDisplay();
         const buttonManager = new ButtonManager();
 
         SectionManager.openSection('gameSection');
@@ -11,8 +14,6 @@ class Displayer {
     }
 
     static displayCard(card, totalPoints) {
-        console.log(card);
-
         // Create the card display
         let cardDisplayed = document.createElement('li');
         cardDisplayed.classList.add('card');
@@ -61,6 +62,17 @@ class Displayer {
     setDefeat() {
         document.getElementById('hand-victoryIndicator').classList.add('invalid');
     }
+
+    resetHandDisplay(){
+        const hand = document.getElementById('hand-container');
+        hand.querySelectorAll('li').forEach( n => n.remove() );
+        console.log("test");
+        document.getElementById("hand-nbPoints").innerText = 0;
+        document.getElementById("hand-victoryIndicator").className = "valid";
+
+    }
+
+
 }
 
 export { Displayer };

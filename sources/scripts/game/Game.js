@@ -3,6 +3,9 @@ import { Card } from '../cards/Card.js';
 import { Displayer } from './Displayer.js';
 import { GameMaster } from '../user/GameMaster.js';
 import { NotifyCenter } from '../events/NotifyCenter.js';
+import {VibrationManager} from "../events/VibrationManager.js";
+import {KeyboardEventsManager} from "../events/KeybordEventsManager.js";
+import {ButtonManager} from "../events/ButtonManager.js";
 
 class Game {
     constructor() {
@@ -12,22 +15,35 @@ class Game {
         this.displayer = new Displayer();
         this.terminated = false;
         this.notifyCenter = new NotifyCenter();
+        this.vibrate = new VibrationManager() ;
     }
 
     initGame(user) {
         if (user.isValid()) {
             this.user = user;
-            
             this.deck.buildDeck()
             .then(() => {
                 this.displayer.initGame(this);
             });
+            KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
+            KeyboardEventsManager.drawEvent(this) ;
+            // Check if deck is builded
+            const deckBuildInterval = setInterval(() => {
+                if (this.deck.id) {
+    
+                    // Set the interface
+                    this.displayer.initGame(this);
+    
+                    clearInterval(deckBuildInterval);
+                }
+            }, 200);
         }
     }
 
     draw(nbToDraw = 1) {
         if (!this.terminated) {
             this.deck.drawCard(nbToDraw)
+            ButtonManager.enableButtonRestart();
             .then(data => {
                 if (data.success) {
                     for (const cardData in data.cards) {
@@ -41,11 +57,27 @@ class Game {
         }
     }
 
+    restart(){
+            if(this.user.hand.cards.length > 0){
+                this.deck.reshuffle()
+                .then(() => {
+                    ButtonManager.enableButton();
+                    this.user.resetHand();
+                    this.displayer.resetHandDisplay();
+                    this.terminated=false;
+                    console.log(this.user.hand)
+                })
+            }
+       
+    }
+
     isTerminated() {
         if (!this.user.hadValidHand()) {
+            ButtonManager.desableButton();
             this.setDefeat();
             return true;
         } else if (this.user.hand.nbPoints === 21) {
+            ButtonManager.desableButton();
             this.setVictory();
             return true;
         }
@@ -59,7 +91,7 @@ class Game {
         
         if (!this.terminated){
             this.terminated = true;
-
+            ButtonManager.desableButton();
             this.deck.drawCard()
             .then(data => {
                 if (data.success) {
@@ -87,6 +119,7 @@ class Game {
             victoryMessage, 
             'success'
         );
+        this.vibrate.createVibration([100,10,100]) ;
         this.user.victory ++;
     }
 
@@ -96,8 +129,11 @@ class Game {
             defeatMessage,
             'error'
         );
+        this.vibrate.createVibration(100) ;
         this.displayer.setDefeat();
     }
+
+
 }
 
 export { Game };
