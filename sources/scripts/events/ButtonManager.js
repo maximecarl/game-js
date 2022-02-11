@@ -18,11 +18,10 @@ class ButtonManager {
     };
 
     static disableButton() {
-        DRAW_CANCEL.disabled = true ;
+        DRAW_CANCEL.disabled = true;
     };
-
     static enableButton() {
-        DRAW_CANCEL.disabled = false ;
+        DRAW_CANCEL.disabled = false;
     };
 
     static enableButtonRestart() {

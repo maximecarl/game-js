@@ -2,6 +2,8 @@ import { SectionManager } from './SectionManager.js';
 import { ButtonManager } from '../events/ButtonManager.js';
 import { NetworkManager } from "../events/NetworkManager.js";
 
+const VICTORY_INDICATOR = document.getElementById('hand-victoryIndicator');
+
 class Displayer {
     initGame(game) {
         const networkManager = new NetworkManager() ;
@@ -60,8 +62,11 @@ class Displayer {
         this.displayDeckCardIndicator(nbDeckCards);
     }
 
+    setVictory() {
+        VICTORY_INDICATOR.classList.add('victory');
+    }
     setDefeat() {
-        document.getElementById('hand-victoryIndicator').classList.add('invalid');
+        VICTORY_INDICATOR.classList.add('invalid');
     }
 
     resetHandDisplay(){
@@ -69,7 +74,6 @@ class Displayer {
         hand.querySelectorAll('li').forEach( n => n.remove() );
         document.getElementById("hand-nbPoints").innerText = 0;
         document.getElementById("hand-victoryIndicator").className = "valid";
-
     }
 
 
