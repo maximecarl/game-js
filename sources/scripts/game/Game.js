@@ -25,15 +25,15 @@ class Game {
         }
     }
 
-    draw() {
+    draw(nbToDraw = 1) {
         if (!this.terminated) {
-            this.deck.drawCard()
+            this.deck.drawCard(nbToDraw)
             .then(data => {
                 if (data.success) {
                     for (const cardData in data.cards) {
                         const card = new Card(data.cards[cardData]);
                         this.user.receiveCard(card);
-                        this.displayer.removeDeckCards();
+                        this.displayer.removeDeckCards(this.deck.nbCards, nbToDraw);
                     }
                     this.terminated = this.isTerminated();
                 }

@@ -41,13 +41,21 @@ class Displayer {
 
             deckContainer.appendChild(cardInDeck);
         }
+
+        this.displayDeckCardIndicator(deck.nbCards);
     }
 
-    removeDeckCards(nbCards = 1) {
+    displayDeckCardIndicator(nbCards) {
+        let deckCardIndicator = document.getElementById('deck-cardIndicator');
+        deckCardIndicator.innerHTML = nbCards;
+    }
+
+    removeDeckCards(nbDeckCards, nbCardsToRemove = 1) {
         let deckCards = document.querySelectorAll('#deck-container .deckCard');
-        for (let index = 0; index < nbCards; index++) {
+        for (let index = 0; index < nbCardsToRemove; index++) {
             deckCards[index].remove();
         }
+        this.displayDeckCardIndicator(nbDeckCards);
     }
 
     setDefeat() {
