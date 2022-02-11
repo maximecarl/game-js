@@ -1,0 +1,27 @@
+#users {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px ;
+}
+#users h2 {
+    text-align: center;
+}
+#users-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#users-list a { margin-top: 10px ; }
+
+#loginSection-user h2 {
+    text-align: center;
+}
+
+#loginSection-container {
+    display: flex;
+    flex-direction: column;
+}
+#loginSection-container > h2 {
+    text-align: center;
+
+}

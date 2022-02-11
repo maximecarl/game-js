@@ -6,6 +6,7 @@ import { NotifyCenter } from '../events/NotifyCenter.js';
 import {VibrationManager} from "../events/VibrationManager.js";
 import {KeyboardEventsManager} from "../events/KeybordEventsManager.js";
 import {ButtonManager} from "../events/ButtonManager.js";
+import {Database} from "../Storage/Database.js";
 
 class Game {
     constructor() {
@@ -16,15 +17,15 @@ class Game {
         this.terminated = false;
         this.notifyCenter = new NotifyCenter();
         this.vibrate = new VibrationManager();
+        this.database = new Database() ;
     }
 
-    initGame(user) {
+    async initGame(user) {
         if (user.isValid()) {
             this.user = user;
-            this.deck.buildDeck()
-            .then(() => {
-                this.displayer.initGame(this);
-            });
+            await this.database.addUser(user) ;
+            await this.deck.buildDeck() ;
+            this.displayer.initGame(this);
             KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
             KeyboardEventsManager.drawEvent(this) ;
             KeyboardEventsManager.restartEvent(this) ;
