@@ -6,7 +6,7 @@ class Deck {
     }
 
     buildDeck() {
-        fetch(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`)
+        return fetch(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`)
         .then(response => {
             return response.json();
         })
@@ -19,7 +19,7 @@ class Deck {
         });
     }
 
-    async drawCard() {
+    async drawCard(nbToDraw = 1) {
         if (!this.isBusy) {
             this.controller = new AbortController() ;
             this.isBusy = true;
@@ -28,6 +28,7 @@ class Deck {
                 signal: this.controller.signal
             })
             .then(response => {
+                this.nbCards -= nbToDraw;
                 return response.json();
             }).finally(() => {
                 this.isBusy = false;

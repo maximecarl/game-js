@@ -4,18 +4,16 @@ import { NetworkManager } from "../events/NetworkManager.js";
 
 class Displayer {
     initGame(game) {
-        console.log(game);
         const networkManager = new NetworkManager() ;
         networkManager.initNetworkDisplay();
         const buttonManager = new ButtonManager();
 
         SectionManager.openSection('gameSection');
         buttonManager.initGame(game);
+        this.displayDeck(game.deck);
     }
 
     static displayCard(card, totalPoints) {
-        console.log(card);
-
         // Create the card display
         let cardDisplayed = document.createElement('li');
         cardDisplayed.classList.add('card');
@@ -32,6 +30,33 @@ class Displayer {
         document.getElementById('hand-container').appendChild(cardDisplayed);
 
         document.getElementById('hand-nbPoints').innerHTML = totalPoints;
+    }
+
+    displayDeck(deck) {
+        let nbCards = deck.nbCards;
+        let deckContainer = document.getElementById('deck-container');
+
+        for (let index = 0; index < nbCards; index++) {
+            let cardInDeck = document.createElement('div');
+            cardInDeck.classList.add('deckCard');
+
+            deckContainer.appendChild(cardInDeck);
+        }
+
+        this.displayDeckCardIndicator(deck.nbCards);
+    }
+
+    displayDeckCardIndicator(nbCards) {
+        let deckCardIndicator = document.getElementById('deck-cardIndicator');
+        deckCardIndicator.innerHTML = nbCards;
+    }
+
+    removeDeckCards(nbDeckCards, nbCardsToRemove = 1) {
+        let deckCards = document.querySelectorAll('#deck-container .deckCard');
+        for (let index = 0; index < nbCardsToRemove; index++) {
+            deckCards[index].remove();
+        }
+        this.displayDeckCardIndicator(nbDeckCards);
     }
 
     setDefeat() {

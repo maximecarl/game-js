@@ -21,6 +21,10 @@ class Game {
     initGame(user) {
         if (user.isValid()) {
             this.user = user;
+            this.deck.buildDeck()
+            .then(() => {
+                this.displayer.initGame(this);
+            });
             KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
             KeyboardEventsManager.drawEvent(this) ;
             // Check if deck is builded
@@ -36,15 +40,16 @@ class Game {
         }
     }
 
-    draw() {
+    draw(nbToDraw = 1) {
         if (!this.terminated) {
+            this.deck.drawCard(nbToDraw)
             ButtonManager.enableButtonRestart();
-            this.deck.drawCard()
             .then(data => {
                 if (data.success) {
                     for (const cardData in data.cards) {
                         const card = new Card(data.cards[cardData]);
                         this.user.receiveCard(card);
+                        this.displayer.removeDeckCards(this.deck.nbCards, nbToDraw);
                     }
                     this.terminated = this.isTerminated();
                 }
@@ -82,7 +87,7 @@ class Game {
 
     endTurn() {
         // Check by security, not mandatory
-        this.terminated = this.isTerminated(); 
+        this.terminated = this.isTerminated();
         
         if (!this.terminated){
             this.terminated = true;

@@ -1,5 +1,3 @@
-import { Deck } from '../cards/Deck.js';
-
 const DECK = document.getElementById('deck-container');
 const DRAW_CANCEL = document.getElementById('action-stop');
 const RESTART = document.getElementById('action-restart');
@@ -11,7 +9,7 @@ class ButtonManager {
         });
 
         DECK.addEventListener('click', () => {
-            game.draw(game.user);
+            game.draw();
         });
         RESTART.addEventListener('click', () => {
             game.restart();
