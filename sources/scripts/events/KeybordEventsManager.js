@@ -27,9 +27,7 @@ class KeyboardEventsManager {
     
     static restartEvent(game) {
         addEventListener('keydown',function (event){
-            console.log('Restart');
             if(event.key === "r") {
-                console.log('Restart');
                 game.restart() ;
             }
         })

@@ -27,7 +27,6 @@ class Deck {
 
     async drawCard(nbToDraw = 1) {
         if (!this.isBusy && this.enableDraw) {
-            console.log('enter');
             this.controller = new AbortController() ;
             this.isBusy = true;
             return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/draw/`, {
