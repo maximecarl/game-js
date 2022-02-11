@@ -83,7 +83,7 @@ section.hidden {
 }
 #deck-container:hover::before {
   top: 70px;
-  opacity: 0.7;
+  opacity: 0.8;
   transform: perspective(420px) rotateX(35deg) scale(1.04);
 }
 
@@ -281,4 +281,16 @@ input[type=submit], button {
 }
 .dynamicButton:disabled {
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.glowHover {
+  box-shadow:
+    0 0 50px 10px transparent;
+  transition: 0.5s;
+}
+.glowHover:enabled:hover {
+  box-shadow:
+    0 0 10px 5px #fff,
+    0 0 20px 5px #f0f,
+    0 0 30px 5px #0ff;
 }
