@@ -27,57 +27,49 @@ class Game {
             });
             KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
             KeyboardEventsManager.drawEvent(this) ;
-            // Check if deck is builded
-            const deckBuildInterval = setInterval(() => {
-                if (this.deck.id) {
-    
-                    // Set the interface
-                    this.displayer.initGame(this);
-    
-                    clearInterval(deckBuildInterval);
-                }
-            }, 200);
         }
     }
 
     draw(nbToDraw = 1) {
         if (!this.terminated) {
-            this.deck.drawCard(nbToDraw)
             ButtonManager.enableButtonRestart();
-            .then(data => {
-                if (data.success) {
-                    for (const cardData in data.cards) {
-                        const card = new Card(data.cards[cardData]);
-                        this.user.receiveCard(card);
-                        this.displayer.removeDeckCards(this.deck.nbCards, nbToDraw);
+            let drawPromise = this.deck.drawCard(nbToDraw);
+
+            if (drawPromise instanceof Promise) {
+                drawPromise.then(data => {
+                    if (data && data.success) {
+                        for (const cardData in data.cards) {
+                            const card = new Card(data.cards[cardData]);
+                            this.user.receiveCard(card);
+                            this.displayer.removeDeckCards(this.deck.nbCards, nbToDraw);
+                        }
+                        this.terminated = this.isTerminated();
                     }
-                    this.terminated = this.isTerminated();
-                }
-            });
+                });
+            }
         }
     }
 
     restart(){
-            if(this.user.hand.cards.length > 0){
-                this.deck.reshuffle()
-                .then(() => {
-                    ButtonManager.enableButton();
-                    this.user.resetHand();
-                    this.displayer.resetHandDisplay();
-                    this.terminated=false;
-                    console.log(this.user.hand)
-                })
-            }
-       
+        if(this.user.hand.cards.length > 0){
+            this.deck.reshuffle()
+            .then(() => {
+                ButtonManager.enableButton();
+                this.user.resetHand();
+                this.displayer.resetHandDisplay();
+                this.terminated=false;
+                console.log(this.user.hand)
+            })
+        }
     }
 
     isTerminated() {
         if (!this.user.hadValidHand()) {
-            ButtonManager.desableButton();
+            ButtonManager.disableButton();
             this.setDefeat();
             return true;
         } else if (this.user.hand.nbPoints === 21) {
-            ButtonManager.desableButton();
+            ButtonManager.disableButton();
             this.setVictory();
             return true;
         }
@@ -91,7 +83,7 @@ class Game {
         
         if (!this.terminated){
             this.terminated = true;
-            ButtonManager.desableButton();
+            ButtonManager.disableButton();
             this.deck.drawCard()
             .then(data => {
                 if (data.success) {
