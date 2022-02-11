@@ -17,13 +17,11 @@ class ButtonManager {
         });
     };
 
-    static desableButton() {
-        document.getElementsByClassName('deck')[0].disabled = true ;
+    static disableButton() {
         DRAW_CANCEL.disabled = true ;
     };
 
     static enableButton() {
-        document.getElementsByClassName('deck')[0].disabled = false ;
         DRAW_CANCEL.disabled = false ;
     };
 
