@@ -14,11 +14,15 @@ class Deck {
         })
         .then(data => {
             if (data.success) {
-                this.id = data.deck_id;
-                this.nbCards = data.remaining;
-                this.shuffled = data.shuffled;
+                this.updateDeckData(data);
             }
         });
+    }
+
+    updateDeckData(data) {
+        this.id = data.deck_id;
+        this.nbCards = data.remaining;
+        this.shuffled = data.shuffled;
     }
 
     async drawCard(nbToDraw = 1) {
@@ -41,6 +45,13 @@ class Deck {
 
     reshuffle(){
         return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/shuffle/?remaining=true`)
+        .then(response => {
+            return response.json();
+        });
+    }
+
+    restartDeck(){
+        return fetch(`https://deckofcardsapi.com/api/deck/${this.id}/shuffle`)
         .then(response => {
             return response.json();
         });

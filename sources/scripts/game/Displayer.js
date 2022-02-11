@@ -35,6 +35,7 @@ class Displayer {
     displayDeck(deck) {
         let nbCards = deck.nbCards;
         let deckContainer = document.getElementById('deck-container');
+        deckContainer.innerHTML = '';
 
         for (let index = 0; index < nbCards; index++) {
             let cardInDeck = document.createElement('div');
