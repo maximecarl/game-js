@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title>Poker 21</title>
   <link rel="stylesheet" href="./styles/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
   <h1>Poker 21</h1>
@@ -16,17 +19,24 @@
             <input type="text" id="loginUser-username" name="username" required>
           </label>
         </div>
-        <input type="submit" value="Jouer">
+        <div class="">
+          <input type="submit" class="cta" value="Jouer">
+        </div>
       </form>
     </div>
   </section>
 
   <section id="gameSection" class="hidden">
     <div id="gameSection-deck">
+      <div id="gameSection-buttons">
+        <button class="cta" id="action-stop">STOP</button>
+        <button class="cta">Restart</button>
+      </div>
+      <div class="deck-cardIndicator">
+        <button>54</button>
+      </div>
+      <!-- Automatically display cards when deck is created and updated -->
       <div id="deck-container">
-        <button class="deck">
-          DECK
-        </button>
       </div>
     </div>
     <div id="gameSection-hand">
@@ -38,11 +48,6 @@
           <p id="hand-nbPoints">0</p>
           <p>PTS</p>
         </div>
-      </div>
-    </div>
-    <div id="gameSection-user">
-      <div id="gameSection-actions" class="actions">
-        <button id="action-stop">Arrêter de piocher</button>
       </div>
     </div>
   </section>

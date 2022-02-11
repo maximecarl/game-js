@@ -3,12 +3,11 @@ import { ButtonManager } from '../events/ButtonManager.js';
 
 class Displayer {
     initGame(game) {
-        console.log(game);
-
         const buttonManager = new ButtonManager();
 
         SectionManager.openSection('gameSection');
         buttonManager.initGame(game);
+        this.displayDeck(game.deck);
     }
 
     static displayCard(card, totalPoints) {
@@ -30,6 +29,25 @@ class Displayer {
         document.getElementById('hand-container').appendChild(cardDisplayed);
 
         document.getElementById('hand-nbPoints').innerHTML = totalPoints;
+    }
+
+    displayDeck(deck) {
+        let nbCards = deck.nbCards;
+        let deckContainer = document.getElementById('deck-container');
+
+        for (let index = 0; index < nbCards; index++) {
+            let cardInDeck = document.createElement('div');
+            cardInDeck.classList.add('deckCard');
+
+            deckContainer.appendChild(cardInDeck);
+        }
+    }
+
+    removeDeckCards(nbCards = 1) {
+        let deckCards = document.querySelectorAll('#deck-container .deckCard');
+        for (let index = 0; index < nbCards; index++) {
+            deckCards[index].remove();
+        }
     }
 
     setDefeat() {

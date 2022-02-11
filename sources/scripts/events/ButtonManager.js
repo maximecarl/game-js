@@ -1,5 +1,3 @@
-import { Deck } from '../cards/Deck.js';
-
 const DECK = document.getElementById('deck-container');
 const DRAW_CANCEL = document.getElementById('action-stop');
 

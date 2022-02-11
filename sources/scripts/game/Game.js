@@ -18,16 +18,10 @@ class Game {
         if (user.isValid()) {
             this.user = user;
             
-            // Check if deck is builded
-            const deckBuildInterval = setInterval(() => {
-                if (this.deck.id) {
-    
-                    // Set the interface
-                    this.displayer.initGame(this);
-    
-                    clearInterval(deckBuildInterval);
-                }
-            }, 200);
+            this.deck.buildDeck()
+            .then(() => {
+                this.displayer.initGame(this);
+            });
         }
     }
 
@@ -39,6 +33,7 @@ class Game {
                     for (const cardData in data.cards) {
                         const card = new Card(data.cards[cardData]);
                         this.user.receiveCard(card);
+                        this.displayer.removeDeckCards();
                     }
                     this.terminated = this.isTerminated();
                 }
@@ -60,7 +55,7 @@ class Game {
 
     endTurn() {
         // Check by security, not mandatory
-        this.terminated = this.isTerminated(); 
+        this.terminated = this.isTerminated();
         
         if (!this.terminated){
             this.terminated = true;
