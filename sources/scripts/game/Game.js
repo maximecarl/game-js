@@ -15,7 +15,7 @@ class Game {
         this.displayer = new Displayer();
         this.terminated = false;
         this.notifyCenter = new NotifyCenter();
-        this.vibrate = new VibrationManager() ;
+        this.vibrate = new VibrationManager();
     }
 
     initGame(user) {
@@ -51,15 +51,31 @@ class Game {
     }
 
     restart(){
-        if(this.user.hand.cards.length > 0){
-            this.deck.reshuffle()
-            .then(() => {
-                ButtonManager.enableButton();
-                this.user.resetHand();
-                this.displayer.resetHandDisplay();
-                this.terminated=false;
-                console.log(this.user.hand)
-            })
+        if (this.user.hand.cards.length > 0) {
+            if (this.deck.nbCards > 25) {
+                this.deck.reshuffle()
+                .then(data => {
+                    if (data.success) {
+                        this.deck.updateDeckData(data);
+                        ButtonManager.enableButton();
+                        this.user.resetHand();
+                        this.displayer.resetHandDisplay();
+                        this.terminated=false;
+                    }
+                });
+            } else {
+                this.deck.restartDeck()
+                .then(data => {
+                    if (data.success) {
+                        this.deck.updateDeckData(data);
+                        this.displayer.displayDeck(this.deck);
+                        ButtonManager.enableButton();
+                        this.user.resetHand();
+                        this.displayer.resetHandDisplay();
+                        this.terminated=false;
+                    }
+                });
+            }
         }
     }
 
