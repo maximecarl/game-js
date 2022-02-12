@@ -1,7 +1,8 @@
 import { Hand } from "../cards/Hand.js";
 
 class User {
-    constructor(formData) {
+    constructor(formData,id) {
+        this.id = id ;
         this.username = formData.get('username');
         this.victory = 0;
         this.hand = new Hand();

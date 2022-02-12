@@ -23,7 +23,7 @@ class Game {
     async initGame(user) {
         if (user.isValid()) {
             this.user = user;
-            await this.database.addUser(user) ;
+            await this.database.saveUser(user) ;
             await this.deck.buildDeck() ;
             this.displayer.initGame(this);
             KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
@@ -32,7 +32,7 @@ class Game {
         }
     }
 
-    draw(nbToDraw = 1) {
+   async draw(nbToDraw = 1) {
         if (!this.terminated) {
             ButtonManager.enableButtonRestart();
             ButtonManager.enableButton();
@@ -44,6 +44,9 @@ class Game {
                         for (const cardData in data.cards) {
                             const card = new Card(data.cards[cardData]);
                             this.user.receiveCard(card);
+                            this.database.saveUser(this.user).then(function (){
+                                console.log("user updated") ;
+                            }) ;
                             this.displayer.removeDeckCards(this.deck.nbCards, nbToDraw);
                         }
                         this.terminated = this.isTerminated();
@@ -124,7 +127,7 @@ class Game {
         }
     }
 
-    setVictory() {
+    async setVictory() {
         let victoryMessage = document.createTextNode('Victoire !');
         this.notifyCenter.notify(
             victoryMessage, 
@@ -133,6 +136,7 @@ class Game {
         this.vibrate.createVibration([100,10,100]) ;
         this.user.victory ++;
         this.displayer.setVictory();
+        await this.database.saveUser(this.user) ;
     }
 
     setDefeat() {
