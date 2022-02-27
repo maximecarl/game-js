@@ -84,8 +84,6 @@ class Displayer {
 
 
     revealCard(card) {
-        console.log(card);
-
         // Add the image to card
         let cardImg = document.createElement('img');
         cardImg.classList.add('revealedCard', 'hidden');
