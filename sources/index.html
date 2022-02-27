@@ -16,12 +16,12 @@
     <div id="loginSection-user">
       <form id="loginUser">
         <div class="form-row">
-          <label>Nom d'utilisateur
+          <label>Username
             <input type="text" id="loginUser-username" name="username" required>
           </label>
         </div>
         <div class="">
-          <input type="submit" class="cta dynamicButton glowHover" value="JOUER">
+          <input type="submit" class="cta dynamicButton glowHover" value="PLAY">
         </div>
       </form>
     </div>
@@ -35,6 +35,9 @@
           <button class="cta dynamicButton glowHover" id="action-stop" disabled="true">STOP</button>
           <button class="cta dynamicButton glowHover" id="action-restart" disabled>RESTART</button>
         </div>
+      </div>
+      <div class="deck-revealContainer">
+        <div id="deck-reveal"></div>
       </div>
       <!-- Automatically display cards when deck is created and updated -->
       <div id="deck-container">

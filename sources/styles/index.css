@@ -126,6 +126,27 @@ section.hidden {
   border-bottom: 1.5px solid black;
 }
 
+.revealedCard {
+  position: absolute;
+  bottom: -6px;
+  left: 10px;
+  width: 178px;
+  max-width: 200px;
+  height: 180px;
+  transform: perspective(420px) rotateX(35deg);
+  transition: 0.5s;
+  filter: hue-rotate(180deg) invert(1);
+}
+.revealedCard.hidden {
+  position: absolute;
+  bottom: -7px;
+  left: 10px;
+  width: 178px;
+  max-width: 200px;
+  height: 180px;
+  transform: perspective(420px) rotateX(35deg) rotateY(90deg);
+}
+
 #gameSection-hand {
   flex: 3;
   display: flex;

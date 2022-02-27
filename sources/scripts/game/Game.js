@@ -1,7 +1,6 @@
 import { Deck } from '../cards/Deck.js';
 import { Card } from '../cards/Card.js';
 import { Displayer } from './Displayer.js';
-import { GameMaster } from '../user/GameMaster.js';
 import { NotifyCenter } from '../events/NotifyCenter.js';
 import {VibrationManager} from "../events/VibrationManager.js";
 import {KeyboardEventsManager} from "../events/KeybordEventsManager.js";
@@ -11,7 +10,6 @@ class Game {
     constructor() {
         this.user = null;
         this.deck = new Deck();
-        this.gameMaster = new GameMaster();
         this.displayer = new Displayer();
         this.terminated = false;
         this.notifyCenter = new NotifyCenter();
@@ -107,10 +105,8 @@ class Game {
                 if (data.success) {
                     for (const cardData in data.cards) {
                         const card = new Card(data.cards[cardData]);
-                        this.gameMaster.receiveCard(card);
-
-                        console.log(card);
-
+                        this.displayer.revealCard(card);
+                        
                         let totalPoints = card.gameValue + this.user.hand.nbPoints;
                         if (totalPoints > 21) {
                             this.setVictory();
