@@ -10,7 +10,24 @@ class NotifyMessage {
         displayMessage.id = this.id;
         displayMessage.classList.add('notification');
         displayMessage.classList.add(this.status);
-        displayMessage.appendChild(this.message);
+
+        let message = document.createElement('div');
+        message.classList.add('message');
+        message.append(this.message);
+
+        let close = document.createElement('div');
+        close.classList.add('close');
+        let context = this;
+        close.addEventListener('click', function() {
+            context.delete();
+        });
+
+        close.innerHTML = 'X';
+
+        displayMessage.append(
+            message,
+            close
+        );
 
         this.displayMessage = displayMessage;
         return this.displayMessage;
