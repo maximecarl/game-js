@@ -17,6 +17,7 @@ class NotifyCenter {
     }
 
     notify(message, status) {
+        console.log('here');
         let newMessage = new NotifyMessage(
             'notification_' + this.nbNotify ++,
             message, 

@@ -274,7 +274,6 @@ input[type=submit], button {
 }
 .notification {
   display: flex;
-  align-items: center;
   position: absolute;
   margin: 10px;
   top: 0;
