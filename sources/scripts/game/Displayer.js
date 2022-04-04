@@ -1,6 +1,8 @@
 import { SectionManager } from './SectionManager.js';
 import { ButtonManager } from '../events/ButtonManager.js';
 import { NetworkManager } from "../events/NetworkManager.js";
+import { User } from '../user/User.js';
+import { Card } from '../cards/Card.js';
 
 const VICTORY_INDICATOR = document.getElementById('hand-victoryIndicator');
 
@@ -22,14 +24,24 @@ class Displayer {
     }
 
     static displayUser(user,game = null) {
-        let userDisplay = document.createElement("button") ;
+
+        const userDisplay = document.createElement("button") ;
         userDisplay.className = "cta dynamicButton glowHover"
         userDisplay.innerHTML = user.username ;
-        userDisplay.href = "#" ;
-
+        
         
         userDisplay.addEventListener('click',function(){
-            game.initGame(user) ; 
+            
+            const oldUser = new User(user.username,user.id) ; 
+            oldUser.victory = user.victory ; 
+
+            for(const card of user.hand.cards) {
+                oldUser.receiveCard(new Card(card)) ;
+            }
+            
+            oldUser.hand.nbPoints = user.hand.nbPoints ;
+
+            game.initGame(oldUser) ; 
         }) ;
         
 
