@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Poker 21</title>
+  <link rel="stylesheet" href="./styles/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/network.css">
+  <link rel="stylesheet" href="./styles/userlist.css">
+</head>
+<body>
+  <h1>POKER 21</h1>
+
+  <section id="loginSection">
+  <div id="loginSection-container">
+    <div id="loginSection-user">
+      <h2>Créer un nouvel utilisateur</h2>
+      <form id="loginUser">
+        <div class="form-row">
+          <label>Username
+            <input type="text" id="loginUser-username" name="username" required>
+          </label>
+        </div>
+        <div class="">
+          <input type="submit" class="cta dynamicButton glowHover" value="PLAY">
+        </div>
+      </form>
+    </div>
+    <h2> OU </h2>
+    <div id="users">
+      <h2>Selectionne en un</h2>
+      <div id="users-list"></div>
+    </div>
+  </div>
+
+  </section>
+
+  <section id="gameSection" class="hidden">
+    <div id="gameSection-deck">
+      <div class="gameSection-actions">
+        <div id="deck-cardIndicator"></div>
+        <div class="gameSection-buttons">
+          <button class="cta dynamicButton glowHover" id="action-stop" disabled="true">STOP</button>
+          <button class="cta dynamicButton glowHover" id="action-restart" disabled>RESTART</button>
+        </div>
+      </div>
+      <div class="deck-revealContainer">
+        <div id="deck-reveal"></div>
+      </div>
+      <!-- Automatically display cards when deck is created and updated -->
+      <div id="deck-container">
+      </div>
+    </div>
+    <div id="gameSection-hand">
+      <ul id="hand-container">
+        <!-- Automatically add cards when user draws -->
+      </ul>
+      <div class="hand-img">
+        <img src="./images/hand-background.png" alt="" class="background">
+        <img src="./images/hand-foreground.png" alt="" class="foreground">
+      </div>
+      <div class="hand-nbPointsContainer">
+        <div id="hand-victoryIndicator">
+          <p id="hand-nbPoints">0</p>
+          <p>PTS</p>
+        </div>
+      </div>
+    </div>
+    <div id="gameSection-network">
+      <div class="network-container">
+          <div id="network-status"></div>
+          <span id="network-text"></span>
+      </div>
+    </div>
+  </section>
+  
+  <script src="./index.js" type="module"></script>
+</body>
+</html>

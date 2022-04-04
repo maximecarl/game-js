@@ -1,0 +1,407 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(6, 2, 19);
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-family: 'Righteous', cursive;
+  letter-spacing: .4rem;
+  text-align: center;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+}
+section.hidden {
+  display: none;
+}
+
+#gameSection {
+  flex-direction: column;
+  max-width: 500px;
+  max-height: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#gameSection-deck {
+  position: relative;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#deck-container {
+  display: flex;
+  position: relative;
+  bottom: 50px;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 200px;
+  min-height: 300px;
+}
+#deck-container::before {
+  position: relative;
+  z-index: 1;
+  top: 10px;
+  width: 175px;
+  max-width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  content: "";
+  flex: 1;
+  opacity: 0;
+  max-height: 180px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  background-image: url('../images/card-backHover.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: perspective(420px) rotateX(35deg);
+  transition: 0.5s;
+}
+#deck-container:hover::before {
+  top: 70px;
+  opacity: 0.8;
+  transform: perspective(420px) rotateX(35deg) scale(1.04);
+}
+
+#deck-container .deckCard {
+  position: relative;
+  height: 2px;
+  border-right: 1.5px solid black;
+  border-left: 1.5px solid black;
+  border-radius: 2px;
+  background-color: rgb(155, 138, 127);
+}
+#deck-container .deckCard:first-child::before {
+  position: absolute;
+  bottom: -8px;
+  left: 10px;
+  width: 175px;
+  max-width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  content: "";
+  flex: 1;
+  max-height: 180px;
+  border: 1.5px solid black;
+  border-radius: 10px;
+  background-color: white;
+  background-image: url('../images/card-back.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: perspective(420px) rotateX(35deg);
+  transition: 0.5s;
+}
+#deck-container .deckCard:nth-last-child(2n+1){
+  border-bottom: 1px solid rgb(82, 79, 79);
+}
+#deck-container .deckCard:nth-last-child(2n){
+  border-bottom: 1px solid rgb(59, 54, 54);
+}
+#deck-container .deckCard:last-child {
+  border-bottom: 1.5px solid black;
+}
+
+.revealedCard {
+  position: absolute;
+  bottom: -6px;
+  left: 10px;
+  width: 178px;
+  max-width: 200px;
+  height: 180px;
+  transform: perspective(420px) rotateX(35deg) rotateY(0deg);
+  transition: 0.5s;
+  filter: hue-rotate(180deg) invert(1);
+}
+.revealedCard.hidden {
+  transform: perspective(420px) rotateX(35deg) rotateY(90deg);
+}
+
+#gameSection-hand {
+  flex: 3;
+  display: flex;
+  max-height: 300px;
+  flex-direction: column;
+}
+#gameSection-hand ul {
+  display: inline-flex;
+  flex: 1;
+  max-width: 100%;
+  padding: 0;
+  z-index: 2;
+}
+#gameSection-hand .card {
+  list-style: none;
+  height: 100%;
+  position: relative;
+  flex: 1;
+  max-width: 30px;
+}
+#gameSection-hand .card:first-child {
+  margin-left: auto;
+}
+#gameSection-hand .card:last-child {
+  max-width: 180px;
+  margin-right: auto;
+}
+#gameSection-hand .card img {
+  position: absolute;
+  height: 100%;
+  width: auto;
+  top: 0;
+  left: 0;
+  filter: hue-rotate(180deg) invert(1);
+  transition: 0.5s;
+}
+#gameSection-hand .card img:hover {
+  transform: translateY(-50px);
+}
+
+#gameSection-hand.lose .card img {
+  transform: translateY(150px);
+}
+
+#gameSection-hand .hand-nbPointsContainer {
+  height: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 4;
+}
+.hand-nbPointsContainer div {
+  position: absolute;
+  bottom: 0px;
+  min-width: 70px;
+  min-height: 70px;
+  padding: 10px;
+  color: rgba(0, 0, 27, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  transition: 0.5s;
+  border-radius: 5px;
+}
+.hand-nbPointsContainer div.victory {
+  background-color: rgb(129, 184, 236);
+}
+.hand-nbPointsContainer div.invalid {
+  background-color: rgb(236, 129, 129);
+}
+.hand-nbPointsContainer #hand-nbPoints {
+  font-family: 'Righteous', cursive;
+  font-weight: bold;
+  font-size: x-large;
+}
+.hand-nbPointsContainer p {
+  margin: 0;
+}
+
+#gameSection-hand .hand-img {
+  position: relative;
+  width: 75%;
+}
+#gameSection-hand .hand-img .background {
+  position: absolute;
+  top: -130px;
+  width: 100%;
+  z-index: 1;
+}
+#gameSection-hand .hand-img .foreground {
+  position: absolute;
+  top: -130px;
+  width: 100%;
+  z-index: 3;
+}
+
+#gameSection-user .actions{
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+}
+.form-row {
+  margin-bottom: 10px;
+}
+input {
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 5px;
+  margin: 3px 0;
+  border: 1px solid lightgrey;
+}
+
+input[type=submit], button {
+  padding: 5px 20px;
+  max-width: fit-content;
+}
+
+
+#notifyCenter {
+  position: relative;
+  width: 100%;
+}
+.notification {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.gameSection-actions {
+  position: relative;
+  width: 100%;
+  z-index: 5;
+  text-align: center;
+  transform: translateY(100px);
+}
+.gameSection-actions .gameSection-buttons {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 0;
+  justify-content: space-around;
+}
+
+#deck-cardIndicator {
+  display: inline-block;
+  margin: auto;
+  font-size: large;
+  opacity: 0.5;
+  letter-spacing: .2rem;
+}
+
+.dynamicButton {
+  font-family: 'Righteous', cursive;
+  min-height: 50px;
+  border: 0;
+  transform: skew(-15deg);
+  font-size: large;
+  font-weight: bold;
+  letter-spacing: .2rem;
+  color: rgba(0, 0, 27, 0.8);
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+.dynamicButton:disabled {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.glowHover {
+  box-shadow:
+    0 0 50px 10px transparent;
+  transition: 0.5s;
+}
+.glowHover:enabled:hover {
+  box-shadow:
+    0 0 10px 5px #fff,
+    0 0 20px 5px #f0f,
+    0 0 30px 5px #0ff;
+}
+
+
+
+
+.slide-out-blurred-top {
+	-webkit-animation: slide-out-blurred-top 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+	        animation: slide-out-blurred-top 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+}
+
+
+@-webkit-keyframes slide-out-blurred-top {
+  0% {
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px) scaleY(2) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2) scaleX(0.2);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+    -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-blurred-top {
+  0% {
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px) scaleY(2) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2) scaleX(0.2);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+    -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0;
+  }
+}
+
+.victoryContainer {
+  animation: shake 2s cubic-bezier(.36,.07,.19,.97);
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(0, 10px, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(0, -20px, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(0, 20px, 0);
+  }
+}
