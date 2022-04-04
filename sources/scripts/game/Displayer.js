@@ -3,10 +3,11 @@ import { ButtonManager } from '../events/ButtonManager.js';
 import { NetworkManager } from "../events/NetworkManager.js";
 
 const VICTORY_INDICATOR = document.getElementById('hand-victoryIndicator');
-
+const HAND_CARD = document.getElementById('hand-container');
 const USER_LIST_CONTAINER = document.getElementById("users-list") ;
 const DECK_REVEAL = document.getElementById('deck-reveal');
 const DECK_CONTAINER = document.getElementById('deck-container');
+
 
 
 class Displayer {
@@ -79,12 +80,19 @@ class Displayer {
 
     setVictory() {
         VICTORY_INDICATOR.classList.add('victory');
+        HAND_CARD.classList.add('victoryContainer');
+        
+
     }
     setDefeat() {
         VICTORY_INDICATOR.classList.add('invalid');
+        HAND_CARD.classList.add('slide-out-blurred-top');
+        
     }
 
     resetHandDisplay(){
+        HAND_CARD.classList.remove('victoryContainer');
+        HAND_CARD.classList.remove('slide-out-blurred-top');
         const hand = document.getElementById('hand-container');
         hand.querySelectorAll('li').forEach( n => n.remove() );
         document.getElementById("hand-nbPoints").innerText = 0;
