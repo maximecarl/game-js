@@ -5,6 +5,7 @@ import { NotifyCenter } from '../events/NotifyCenter.js';
 import {VibrationManager} from "../events/VibrationManager.js";
 import {KeyboardEventsManager} from "../events/KeybordEventsManager.js";
 import {ButtonManager} from "../events/ButtonManager.js";
+import {Database} from "../Storage/Database.js";
 
 class Game {
     constructor() {
@@ -14,22 +15,22 @@ class Game {
         this.terminated = false;
         this.notifyCenter = new NotifyCenter();
         this.vibrate = new VibrationManager();
+        this.database = new Database() ;
     }
 
-    initGame(user) {
+    async initGame(user) {
         if (user.isValid()) {
             this.user = user;
-            this.deck.buildDeck()
-            .then(() => {
-                this.displayer.initGame(this);
-            });
+            await this.database.saveUser(user) ;
+            await this.deck.buildDeck() ;
+            this.displayer.initGame(this);
             KeyboardEventsManager.cancelDrawEvent(this.deck,this.notifyCenter) ;
             KeyboardEventsManager.drawEvent(this) ;
             KeyboardEventsManager.restartEvent(this) ;
         }
     }
 
-    draw(nbToDraw = 1) {
+   async draw(nbToDraw = 1) {
         if (!this.terminated) {
             ButtonManager.enableButtonRestart();
             ButtonManager.enableButton();
@@ -41,6 +42,9 @@ class Game {
                         for (const cardData in data.cards) {
                             const card = new Card(data.cards[cardData]);
                             this.user.receiveCard(card);
+                            this.database.saveUser(this.user).then(function (){
+                                console.log("user updated") ;
+                            }) ;
                             this.displayer.removeDeckCards(this.deck.nbCards, nbToDraw);
                         }
                         this.terminated = this.isTerminated();
@@ -119,7 +123,7 @@ class Game {
         }
     }
 
-    setVictory() {
+    async setVictory() {
         let victoryMessage = document.createTextNode('Victoire !');
         this.notifyCenter.notify(
             victoryMessage, 
@@ -128,6 +132,7 @@ class Game {
         this.vibrate.createVibration([100,10,100]) ;
         this.user.victory ++;
         this.displayer.setVictory();
+        await this.database.saveUser(this.user) ;
     }
 
     setDefeat() {

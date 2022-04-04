@@ -3,8 +3,11 @@ import { ButtonManager } from '../events/ButtonManager.js';
 import { NetworkManager } from "../events/NetworkManager.js";
 
 const VICTORY_INDICATOR = document.getElementById('hand-victoryIndicator');
+
+const USER_LIST_CONTAINER = document.getElementById("users-list") ;
 const DECK_REVEAL = document.getElementById('deck-reveal');
 const DECK_CONTAINER = document.getElementById('deck-container');
+
 
 class Displayer {
     initGame(game) {
@@ -15,6 +18,13 @@ class Displayer {
         SectionManager.openSection('gameSection');
         buttonManager.initGame(game);
         this.displayDeck(game.deck);
+    }
+
+    static displayUser(user) {
+        let userDisplay = document.createElement("a") ;
+        userDisplay.text = user.username ;
+
+        USER_LIST_CONTAINER.appendChild(userDisplay) ;
     }
 
     static displayCard(card, totalPoints) {

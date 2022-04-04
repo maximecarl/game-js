@@ -13,6 +13,7 @@ html, body {
 h1 {
   font-family: 'Righteous', cursive;
   letter-spacing: .4rem;
+  text-align: center;
 }
 
 body {
@@ -20,7 +21,6 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 section {

@@ -8,12 +8,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/network.css">
+  <link rel="stylesheet" href="./styles/userlist.css">
 </head>
 <body>
   <h1>POKER 21</h1>
 
   <section id="loginSection">
+  <div id="loginSection-container">
     <div id="loginSection-user">
+      <h2>Créer un nouvel utilisateur</h2>
       <form id="loginUser">
         <div class="form-row">
           <label>Username
@@ -25,6 +28,13 @@
         </div>
       </form>
     </div>
+    <h2> OU </h2>
+    <div id="users">
+      <h2>Selectionne en un</h2>
+      <div id="users-list"></div>
+    </div>
+  </div>
+
   </section>
 
   <section id="gameSection" class="hidden">
