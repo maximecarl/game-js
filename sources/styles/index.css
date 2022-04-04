@@ -39,6 +39,7 @@ section.hidden {
   max-width: 500px;
   max-height: 700px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #gameSection-deck {
@@ -126,6 +127,21 @@ section.hidden {
   border-bottom: 1.5px solid black;
 }
 
+.revealedCard {
+  position: absolute;
+  bottom: -6px;
+  left: 10px;
+  width: 178px;
+  max-width: 200px;
+  height: 180px;
+  transform: perspective(420px) rotateX(35deg) rotateY(0deg);
+  transition: 0.5s;
+  filter: hue-rotate(180deg) invert(1);
+}
+.revealedCard.hidden {
+  transform: perspective(420px) rotateX(35deg) rotateY(90deg);
+}
+
 #gameSection-hand {
   flex: 3;
   display: flex;
@@ -137,6 +153,7 @@ section.hidden {
   flex: 1;
   max-width: 100%;
   padding: 0;
+  z-index: 2;
 }
 #gameSection-hand .card {
   list-style: none;
@@ -165,11 +182,16 @@ section.hidden {
   transform: translateY(-50px);
 }
 
+#gameSection-hand.lose .card img {
+  transform: translateY(150px);
+}
+
 #gameSection-hand .hand-nbPointsContainer {
   height: 0;
   position: relative;
   display: flex;
   justify-content: center;
+  z-index: 4;
 }
 .hand-nbPointsContainer div {
   position: absolute;
@@ -196,6 +218,23 @@ section.hidden {
 }
 .hand-nbPointsContainer p {
   margin: 0;
+}
+
+#gameSection-hand .hand-img {
+  position: relative;
+  width: 75%;
+}
+#gameSection-hand .hand-img .background {
+  position: absolute;
+  top: -130px;
+  width: 100%;
+  z-index: 1;
+}
+#gameSection-hand .hand-img .foreground {
+  position: absolute;
+  top: -130px;
+  width: 100%;
+  z-index: 3;
 }
 
 #gameSection-user .actions{

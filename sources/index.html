@@ -19,12 +19,12 @@
       <h2>Créer un nouvel utilisateur</h2>
       <form id="loginUser">
         <div class="form-row">
-          <label>Nom d'utilisateur
+          <label>Username
             <input type="text" id="loginUser-username" name="username" required>
           </label>
         </div>
         <div class="">
-          <input type="submit" class="cta dynamicButton glowHover" value="JOUER">
+          <input type="submit" class="cta dynamicButton glowHover" value="PLAY">
         </div>
       </form>
     </div>
@@ -46,6 +46,9 @@
           <button class="cta dynamicButton glowHover" id="action-restart" disabled>RESTART</button>
         </div>
       </div>
+      <div class="deck-revealContainer">
+        <div id="deck-reveal"></div>
+      </div>
       <!-- Automatically display cards when deck is created and updated -->
       <div id="deck-container">
       </div>
@@ -54,6 +57,10 @@
       <ul id="hand-container">
         <!-- Automatically add cards when user draws -->
       </ul>
+      <div class="hand-img">
+        <img src="./images/hand-background.png" alt="" class="background">
+        <img src="./images/hand-foreground.png" alt="" class="foreground">
+      </div>
       <div class="hand-nbPointsContainer">
         <div id="hand-victoryIndicator">
           <p id="hand-nbPoints">0</p>

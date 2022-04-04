@@ -3,7 +3,11 @@ import { ButtonManager } from '../events/ButtonManager.js';
 import { NetworkManager } from "../events/NetworkManager.js";
 
 const VICTORY_INDICATOR = document.getElementById('hand-victoryIndicator');
+
 const USER_LIST_CONTAINER = document.getElementById("users-list") ;
+const DECK_REVEAL = document.getElementById('deck-reveal');
+const DECK_CONTAINER = document.getElementById('deck-container');
+
 
 class Displayer {
     initGame(game) {
@@ -39,19 +43,22 @@ class Displayer {
         // Display card in hand
         document.getElementById('hand-container').appendChild(cardDisplayed);
 
-        document.getElementById('hand-nbPoints').innerHTML = totalPoints;
+        Displayer.displayNbPoints(totalPoints);
+    }
+
+    static displayNbPoints(nbPoints) {
+        document.getElementById('hand-nbPoints').innerHTML = nbPoints;
     }
 
     displayDeck(deck) {
         let nbCards = deck.nbCards;
-        let deckContainer = document.getElementById('deck-container');
-        deckContainer.innerHTML = '';
+        DECK_CONTAINER.innerHTML = '';
 
         for (let index = 0; index < nbCards; index++) {
             let cardInDeck = document.createElement('div');
             cardInDeck.classList.add('deckCard');
 
-            deckContainer.appendChild(cardInDeck);
+            DECK_CONTAINER.appendChild(cardInDeck);
         }
 
         this.displayDeckCardIndicator(deck.nbCards);
@@ -85,6 +92,20 @@ class Displayer {
     }
 
 
+
+    revealCard(card) {
+        // Add the image to card
+        let cardImg = document.createElement('img');
+        cardImg.classList.add('revealedCard', 'hidden');
+        cardImg.src = card.images.png;
+        
+        let deckCards = document.querySelectorAll('#deck-container .deckCard');
+        deckCards[0].append(cardImg);
+
+        setTimeout(function() {
+            cardImg.classList.remove('hidden');
+        }, 50);
+    }
 }
 
 export { Displayer };
