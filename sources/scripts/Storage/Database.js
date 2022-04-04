@@ -56,7 +56,7 @@ class Database {
         }) ;
     }
 
-    isUserExist(userList, user, getUserId = false) {
+    isUserExist(userList, user) {
 
         if(userList.length === 0) return  false ;
 
