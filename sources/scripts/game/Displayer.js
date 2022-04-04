@@ -10,6 +10,7 @@ const DECK_CONTAINER = document.getElementById('deck-container');
 
 
 class Displayer {
+
     initGame(game) {
         const networkManager = new NetworkManager() ;
         networkManager.initNetworkDisplay();
@@ -20,9 +21,17 @@ class Displayer {
         this.displayDeck(game.deck);
     }
 
-    static displayUser(user) {
-        let userDisplay = document.createElement("a") ;
-        userDisplay.text = user.username ;
+    static displayUser(user,game = null) {
+        let userDisplay = document.createElement("button") ;
+        userDisplay.className = "cta dynamicButton glowHover"
+        userDisplay.innerHTML = user.username ;
+        userDisplay.href = "#" ;
+
+        
+        userDisplay.addEventListener('click',function(){
+            game.initGame(user) ; 
+        }) ;
+        
 
         USER_LIST_CONTAINER.appendChild(userDisplay) ;
     }
