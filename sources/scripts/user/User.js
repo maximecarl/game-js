@@ -3,7 +3,9 @@ import { Hand } from "../cards/Hand.js";
 class User {
     constructor(formData,id) {
         this.id = id ;
-        this.username = formData.get('username');
+        if( typeof formData === 'string')
+            this.username = formData ; 
+        else this.username = formData.get('username');
         this.victory = 0;
         this.hand = new Hand();
     }
@@ -23,6 +25,7 @@ class User {
     resetHand(){
         this.hand = new Hand();
     }
+
 }
 
 export { User };

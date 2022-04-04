@@ -9,7 +9,7 @@ let id = 0 ;
 
     game.database.getAllUser().then(function (userList) {
         for(const user of  userList  ) {
-            Displayer.displayUser(user);
+            Displayer.displayUser(user,game);
             id++ ;
         }
     }) ;

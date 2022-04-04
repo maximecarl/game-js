@@ -1,6 +1,8 @@
 import { SectionManager } from './SectionManager.js';
 import { ButtonManager } from '../events/ButtonManager.js';
 import { NetworkManager } from "../events/NetworkManager.js";
+import { User } from '../user/User.js';
+import { Card } from '../cards/Card.js';
 
 const VICTORY_INDICATOR = document.getElementById('hand-victoryIndicator');
 const HAND_CARD = document.getElementById('hand-container');
@@ -11,6 +13,7 @@ const DECK_CONTAINER = document.getElementById('deck-container');
 
 
 class Displayer {
+
     initGame(game) {
         const networkManager = new NetworkManager() ;
         networkManager.initNetworkDisplay();
@@ -21,9 +24,27 @@ class Displayer {
         this.displayDeck(game.deck);
     }
 
-    static displayUser(user) {
-        let userDisplay = document.createElement("a") ;
-        userDisplay.text = user.username ;
+    static displayUser(user,game = null) {
+
+        const userDisplay = document.createElement("button") ;
+        userDisplay.className = "cta dynamicButton glowHover"
+        userDisplay.innerHTML = user.username ;
+        
+        
+        userDisplay.addEventListener('click',function(){
+            
+            const oldUser = new User(user.username,user.id) ; 
+            oldUser.victory = user.victory ; 
+
+            for(const card of user.hand.cards) {
+                oldUser.receiveCard(new Card(card)) ;
+            }
+            
+            oldUser.hand.nbPoints = user.hand.nbPoints ;
+
+            game.initGame(oldUser) ; 
+        }) ;
+        
 
         USER_LIST_CONTAINER.appendChild(userDisplay) ;
     }

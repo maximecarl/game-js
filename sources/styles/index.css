@@ -273,14 +273,29 @@ input[type=submit], button {
   width: 100%;
 }
 .notification {
+  display: flex;
+  align-items: center;
   position: absolute;
+  margin: 10px;
   top: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(47, 13, 105);
   color: white;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 30px;
+}
+.notification .message {
   padding: 10px 20px;
+}
+.notification .close {
+  display: flex;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  cursor: pointer;
 }
 
 .gameSection-actions {
@@ -326,6 +341,7 @@ input[type=submit], button {
   box-shadow:
     0 0 50px 10px transparent;
   transition: 0.5s;
+  margin-bottom: 10px;
 }
 .glowHover:enabled:hover {
   box-shadow:
