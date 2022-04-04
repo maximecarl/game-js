@@ -4,8 +4,26 @@ import { NotifyCenter } from './scripts/events/NotifyCenter.js';
 import {Displayer} from "./scripts/game/Displayer.js";
 import {Card} from "./scripts/cards/Card.js";
 let id = 0 ;
+let rulesHtml = document.createElement('div');
+rulesHtml.innerHTML = `<h2>Règles du jeu :</h2>
+    <ul>
+        <li>Piocher des cartes en cliquant sur le deck pour obtenir 21 points.</li>
+        <li>Si vous obtenez 21 points, c'est gagné.</li>
+        <li>Si vous dépassez 21 points, c'est perdu.</li>
+        <li>A tout moment, vous pouvez décider de vous arrêter en cliquant sur "Stop", une carte se dévoile :
+        <ul>
+            <li>Si elle vous faisait dépasser 21 points, vous avez gagné parce que vous avez su vous arrêter à temps</li>
+            <li>Si la carte ne vous faisait pas dépasser 21 points, c'est perdu.</li>
+        </ul>
+        </li>
+    </ul>`;
+
  document.addEventListener('DOMContentLoaded', function() {
     const game = new Game();
+    let notifyCenter = new NotifyCenter();
+    document.getElementById('displayRules').addEventListener('click', function() {
+        notifyCenter.notify(rulesHtml, 'success');
+    });
 
     game.database.getAllUser().then(function (userList) {
         for(const user of  userList  ) {
