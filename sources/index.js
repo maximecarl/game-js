@@ -9,16 +9,7 @@ let id = 0 ;
 
     game.database.getAllUser().then(function (userList) {
         for(const user of  userList  ) {
-
-            const u = new User(user.username,user.id) ; 
-            u.victory = user.victory ; 
-
-            for(const card of user.hand.cards) {
-                u.receiveCard(new Card(card)) ;
-            }
-            
-            u.hand.nbPoints = user.hand.nbPoints ;
-            Displayer.displayUser(u,game);
+            Displayer.displayUser(user,game);
             id++ ;
         }
     }) ;
